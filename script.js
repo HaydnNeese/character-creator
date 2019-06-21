@@ -95,6 +95,13 @@ const subClassesAndStatBoosts = {
     }
 };
 
+//make a zero the stats function for when players change character again
+function resetAttributes() {
+    character.baseStats.str = 5;
+    character.baseStats.dex = 5;
+    character.baseStats.int = 5;
+}
+
 //based on the choice of the class the character creator will reveal different subclasses
 function detectClass() {
     let characterClass = document.getElementById('class-select').value;
@@ -102,13 +109,16 @@ function detectClass() {
         document.getElementById('subclass-1').innerHTML = subClassesAndStatBoosts.warrior.berserker.name;
         document.getElementById('subclass-2').innerHTML = subClassesAndStatBoosts.warrior.fighter.name;
         document.getElementById('subclass-3').innerHTML = subClassesAndStatBoosts.warrior.knight.name;
+        resetAttributes();
         character.baseStats.str += classesAndStatBoosts.warrior.str;
         character.baseStats.dex += classesAndStatBoosts.warrior.dex;
         character.baseStats.int += classesAndStatBoosts.warrior.int;
+        detectWarriorSubClass();
     }else if (characterClass === 'rogue') {
         document.getElementById('subclass-1').innerHTML = subClassesAndStatBoosts.rogue.assassin.name;
         document.getElementById('subclass-2').innerHTML = subClassesAndStatBoosts.rogue.ranger.name;
         document.getElementById('subclass-3').innerHTML = subClassesAndStatBoosts.rogue.thief.name;
+        resetAttributes();
         character.baseStats.str += classesAndStatBoosts.rogue.str;
         character.baseStats.dex += classesAndStatBoosts.rogue.dex;
         character.baseStats.int += classesAndStatBoosts.rogue.int;
@@ -116,6 +126,7 @@ function detectClass() {
         document.getElementById('subclass-1').innerHTML = subClassesAndStatBoosts.mage.arcanist.name;
         document.getElementById('subclass-2').innerHTML = subClassesAndStatBoosts.mage.battlemage.name;
         document.getElementById('subclass-3').innerHTML = subClassesAndStatBoosts.mage.elementalist.name;
+        resetAttributes();
         character.baseStats.str += classesAndStatBoosts.mage.str;
         character.baseStats.dex += classesAndStatBoosts.mage.dex;
         character.baseStats.int += classesAndStatBoosts.mage.int;
@@ -123,13 +134,28 @@ function detectClass() {
 };
 
 document.getElementById('class-select').onchange = detectClass;
+//needs to be mapped to a different function this was just a (((TEST)))
+document.getElementById('subclass-select').onchange = detectClass;
 
+//detect stats when choosing warrior subclasses
 function detectWarriorSubClass() {
     let characterSubClass = document.getElementById('subclass-select').value;
     if(characterSubClass === 'Berserker') {
         character.baseStats.str += subClassesAndStatBoosts.warrior.berserker.str;
+        character.baseStats.dex += subClassesAndStatBoosts.warrior.berserker.dex;
+        character.baseStats.int += subClassesAndStatBoosts.warrior.berserker.int;
+    }else if(characterSubClass === 'Fighter') {
+        character.baseStats.str += subClassesAndStatBoosts.warrior.fighter.str;
+        character.baseStats.dex += subClassesAndStatBoosts.warrior.fighter.dex;
+        character.baseStats.int += subClassesAndStatBoosts.warrior.fighter.int;
+    }else if(characterSubClass === 'Knight') {
+        character.baseStats.str += subClassesAndStatBoosts.warrior.knight.str;
+        character.baseStats.dex += subClassesAndStatBoosts.warrior.knight.dex;
+        character.baseStats.int += subClassesAndStatBoosts.warrior.knight.int;
     }
-}
+};
+
+//need to do the same for rogue and mage subcclasses
 
 //fill in the blanks on the character object above
 function updateModel() {
