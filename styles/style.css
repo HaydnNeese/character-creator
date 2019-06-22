@@ -17,8 +17,15 @@
     width: 50%;
 }
 
-
 .input-fields {
     margin: 2% 0;
     width: 50%;
+}
+
+.display {
+    margin: 1%;
+}
+
+.inline {
+    display: inline-block;
 }

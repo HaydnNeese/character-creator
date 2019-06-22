@@ -16,22 +16,23 @@
                 <p>Name: </p><input class='input-fields' type='text' id='name-input' placeholder='Enter Name Here'>
                 <p>Gender</p>
                 <select class='input-fields' name='gender' id='gender-select'>
-                    <option value='male'>Male</option>
-                    <option value='female'>Female</option>
+                    <option value='Male'>Male</option>
+                    <option value='Female'>Female</option>
                 </select>
                 <p>Race</p>
                 <select class='input-fields' name='race' id='race-select'>
-                    <option value='human'>Human</option>
-                    <option value='elf'>Elf</option>
-                    <option value='orc'>Orc</option>
+                    <option>Choose Race</option>
+                    <option value='Human'>Human</option>
+                    <option value='Elf'>Elf</option>
+                    <option value='Orc'>Orc</option>
                 </select>
                 <div>
                     <p>Class</p>
                     <select class='input-fields' name='class' id='class-select'>
                         <option>Choose Class</option>
-                        <option value='warrior'>Warrior</option>
-                        <option value='rogue'>Rogue</option>
-                        <option value='mage'>Mage</option>
+                        <option value='Warrior'>Warrior</option>
+                        <option value='Rogue'>Rogue</option>
+                        <option value='Mage'>Mage</option>
                     </select>
                 </div>
                 <div>
@@ -50,19 +51,52 @@
         </div>
     </div>
     <div class='char-display-div'>
-        <p>Here is your character...</p>
-        <div id='name-display'></div>
-        <div id='gender-display'></div>
-        <div id='race-display'></div>
-        <div id='class-display'></div>
-        <div id='subclass-display'></div>
+        <p class='display'>Here is your character...</p>
         <div>
-            <div id='str-display'></div>
-            <div id='dex-display'></div>
-            <div id='int-display'></div>
+            <div>
+                <p class='label inline'>Name:</p>
+                <p class='display inline' id='name-display'></p>
+            </div>
+            <div>
+                <p class='label inline'>Gender:</p>
+                <p class='display inline' id='gender-display'></p>
+            </div>
+            <div>
+                <p class='label inline'>Race:</p>
+                <p class='display inline' id='race-display'></p>
+            </div>
+            <div>
+                <p class='label inline'>Class:</p>
+                <p class='display inline' id='class-display'></p>
+            </div>
+            <div>
+                <p class='label inline'>Subclass:</p>
+                <p class='display inline' id='subclass-display'></p>
+            </div>
+            <div>
+                <p class='display' id='attr-display-div'>
+                    <p class='display'>Your Character's Main Attributes</p>
+                    <div>
+                        <p class='label inline'>Strength:</p>
+                        <p class='display inline' id='str-display'></p>
+                    </div>
+                    <div>
+                        <p class='label inline'>Dexterity:</p>
+                        <p class='display inline' id='dex-display'></p>
+                    </div>
+                    <div>
+                        <p class='label inline'>Intelligence:</p>
+                        <p class='display inline' id='int-display'></p>
+                    </div>
+
+            </div>
         </div>
+
+    </div>
+
     </div>
 </body>
 <script src="script.js">
 </script>
+
 </html>
