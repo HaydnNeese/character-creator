@@ -8,7 +8,6 @@
 .char-display-div {
     width: 44%;
     padding-top: 5%;
-    text-align: center;
     display: inline-block;
     vertical-align: top;
 }
@@ -22,10 +21,27 @@
     width: 50%;
 }
 
-.display {
+.section {
     margin: 1%;
+    font-size: 100%;
 }
 
 .inline {
     display: inline-block;
+}
+
+.label {
+    font-size: 180%;
+    margin: 1%;
+}
+
+.info {
+    padding-top: 2%;
+    margin-right: 2%;
+    font-size: 140%;
+    float: right;
+}
+
+.div-border {
+    border: solid 5px black;
 }

@@ -1,8 +1,3 @@
-const displayArea = document.getElementsByClassName('char-display-div');
-function hideDisplay() {
-    displayArea.style.display = 'none';
-}
-window.onload = hideDisplay;
 //object storing the character's info and attributes for when it is created
 let character = {
     name: '',
@@ -14,25 +9,60 @@ let character = {
         str: 5,
         dex: 5,
         int: 5
+    },
+    generatedStats: {
+        health: 0,
+        defense: 0,
+        attackPower: 0,
+        spellPower: 0,
+        crit: 0
     }
 };
 
-//object containing the name attribute affects of each class
+//object containing the attribute affects of each race
+const racesAndStatBoosts = {
+    human: {
+        str: 2,
+        dex: 2,
+        int: 2,
+        hpMult: 1.7,
+        defMult: .8
+    },
+    elf: {
+        str: 0,
+        dex: 2,
+        int: 4,
+        hpMult: 1.3,
+        defMult: .4
+    },
+    orc: {
+        str: 5,
+        dex: 1,
+        int: 0,
+        hpMult: 1.9,
+        defMult: .6
+    }
+}
+
+//object containing the attribute affects of each class
 const classesAndStatBoosts = {
     warrior: {
         str: 5,
         dex: 1,
-        int: 0
+        int: 0,
+        apMult: 3
     },
     rogue: {
         str: 1,
         dex: 5,
-        int: 0
+        int: 0,
+        apMult: 2
     },
     mage: {
         str: 0,
         dex: 0,
-        int: 6
+        int: 6,
+        spMulti: 3
     }
 } 
 
@@ -43,19 +73,31 @@ const subClassesAndStatBoosts = {
             name: 'Berserker',
             str: 4,
             dex: 0,
-            int: -1
+            int: -1,
+            hp: 10,
+            def: -3,
+            attackPower: 10,
+            spellPower: 0
         },
         fighter: {
             name: 'Fighter',
             str: 2,
             dex: 1,
-            int: 0
+            int: 0,
+            hp: 4,
+            def: 4,
+            attackPower: 5,
+            spellPower: 0
         },
         knight: {
             name: 'Knight',
             str: 2,
             dex: -1,
-            int: 2
+            int: 2,
+            hp: 3,
+            def: 8,
+            attackPower: 4,
+            spellPower: 4
         }
     },
     rogue: {
@@ -63,19 +105,31 @@ const subClassesAndStatBoosts = {
             name: 'Assassin',
             str: -1,
             dex: 4,
-            int: 0
+            int: 0,
+            hp: 2,
+            def: 1,
+            attackPower: 3,
+            spellPower: 1
         },
         thief: {
             name: 'Thief',
             str: -1,
             dex: 3,
-            int: 1
+            int: 1,
+            hp: 1,
+            def: 3,
+            attackPower: 3,
+            spellPower: 0
         },
         ranger: {
             name: 'Ranger',
             str: -1,
             dex: 2,
-            int: 2
+            int: 2,
+            hp: 4,
+            def: 2,
+            attackPower: 5,
+            spellPower: 0
         }
     },
     mage: {
@@ -83,28 +137,60 @@ const subClassesAndStatBoosts = {
             name: 'Elementalist',
             str: 0,
             dex: 0,
-            int: 3
+            int: 3,
+            hp: 0,
+            def: 0,
+            attackPower: 0,
+            spellPower: 10
         },
         battlemage: {
             name: 'Battlemage',
             str: 1,
             dex: 0,
-            int: 2
+            int: 2,
+            hp: 0,
+            def: 0,
+            attackPower: 0,
+            spellPower: 10
         },
         arcanist: {
             name: 'Arcanist',
             str: -1,
             dex: -1,
-            int: 5
+            int: 5,
+            hp: 0,
+            def: 0,
+            attackPower: 0,
+            spellPower: 15
         }
     }
 };
+
+//!!!!NEED TO MAKE IT WEAR THE NUMBERS DON'T ADD TOGETHER IF PLAYER CHANGES MIND!!!!
+//**also need to make it where calculations happen to calculate HP, Defense, Crit, AP, and SP */
 
 //make a reset the attributes function for when players change character again
 function resetAttributes() {
     character.baseStats.str = 5;
     character.baseStats.dex = 5;
     character.baseStats.int = 5;
+}
+//add the attribute boost for the character based on which race it is
+function humanStatBoost() {
+    character.baseStats.str += racesAndStatBoosts.human.str;
+    character.baseStats.dex += racesAndStatBoosts.human.dex;
+    character.baseStats.int += racesAndStatBoosts.human.int;
+    console.log(character.baseStats.str);
+}
+function elfStatBoost() {
+    character.baseStats.str += racesAndStatBoosts.elf.str;
+    character.baseStats.dex += racesAndStatBoosts.elf.dex;
+    character.baseStats.int += racesAndStatBoosts.elf.int;
+}
+function orcStatBoost() {
+    character.baseStats.str += racesAndStatBoosts.orc.str;
+    character.baseStats.dex += racesAndStatBoosts.orc.dex;
+    character.baseStats.int += racesAndStatBoosts.orc.int;
 }
 //applies boost to stats for choosing warrior
 function warriorAttributeBoost() {
@@ -177,6 +263,17 @@ function detectMageSubClasses() {
     }
 }
 
+function detectRace() {
+    let characterRace = document.getElementById('race-select').value;
+    if(characterRace === 'Human') {
+        humanStatBoost();
+    }else if(characterRace === 'Elf') {
+        elfStatBoost();
+    }else if(characterRace === 'Orc') {
+        orcStatBoost();
+    }
+}
+
 //based on the choice of the class the character creator will reveal different subclasses
 function detectClass() {
     let characterClass = document.getElementById('class-select').value;
@@ -187,6 +284,7 @@ function detectClass() {
         resetAttributes();
         warriorAttributeBoost();
         detectWarriorSubClass();
+        detectRace();
     }else if (characterClass === 'Rogue') {
         document.getElementById('subclass-1').innerHTML = subClassesAndStatBoosts.rogue.assassin.name;
         document.getElementById('subclass-2').innerHTML = subClassesAndStatBoosts.rogue.ranger.name;
@@ -194,6 +292,7 @@ function detectClass() {
         resetAttributes();
         rogueAttributeBoost();
         detectRogueSubClass();
+        detectRace();
     }else if (characterClass === 'Mage') {
         document.getElementById('subclass-1').innerHTML = subClassesAndStatBoosts.mage.arcanist.name;
         document.getElementById('subclass-2').innerHTML = subClassesAndStatBoosts.mage.battlemage.name;
@@ -201,12 +300,20 @@ function detectClass() {
         resetAttributes();
         mageAttributeBoost();
         detectMageSubClasses();
+        detectRace();
     }
 };
 
+function detectSubClass() {
+    detectWarriorSubClass();
+    detectRogueSubClass();
+    detectMageSubClasses();
+}
+
+document.getElementById('race-select').onchange = detectRace;
 document.getElementById('class-select').onchange = detectClass;
-//needs to be mapped to a different function this was just a (((TEST)))
-document.getElementById('subclass-select').onchange = detectClass;
+document.getElementById('subclass-select').onchange = detectSubClass;
+
 
 //fill in the blanks on the character object above
 function updateModel() {
