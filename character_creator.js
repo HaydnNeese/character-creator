@@ -357,9 +357,11 @@ function detectClass() {
 };
 
 function detectSubClass() {
+    resetAttributes();
     detectWarriorSubClass();
     detectRogueSubClass();
     detectMageSubClasses();
+    detectClass();
 };
 
 document.getElementById('race-select').onchange = detectRace;
