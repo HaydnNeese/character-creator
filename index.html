@@ -23,8 +23,11 @@
                 <select class='input-fields' name='race' id='race-select'>
                     <option>Choose Race</option>
                     <option value='Human'>Human</option>
+                    <option value='Dwarf'>Dwarf</option>
                     <option value='Elf'>Elf</option>
                     <option value='Orc'>Orc</option>
+                    <option value='Dark Elf'>Dark Elf</option>
+                    <option value='Goblin'>Goblin</option>
                 </select>
                 <div>
                     <p>Class</p>
@@ -51,48 +54,48 @@
         </div>
     </div>
     <div class='char-display-div'>
-        <div>
-            <div class='div-border'>
+            <div>
                 <p class='label inline'>Name:</p>
                 <p class='info' id='name-display'></p>
             </div>
-            <div class='div-border'>
+            <div>
                 <p class='label inline'>Gender:</p>
                 <p class='info' id='gender-display'></p>
             </div>
-            <div class='div-border'>
+            <div>
                 <p class='label inline'>Race:</p>
                 <p class='info' id='race-display'></p>
             </div>
-            <div class='div-border'>
+            <div>
                 <p class='label inline'>Class:</p>
                 <p class='info' id='class-display'></p>
             </div>
-            <div class='div-border'>
+            <div>
                 <p class='label inline'>Subclass:</p>
                 <p class='info' id='subclass-display'></p>
             </div>
             <div class='section' id='attr-display-div'>
-                <div class='div-border'>
+                <div>
                     <p class='label inline'>Strength:</p>
                     <p class='info' id='str-display'></p>
                 </div>
-                <div class='div-border'>
+                <div>
                     <p class='label inline'>Dexterity:</p>
                     <p class='info' id='dex-display'></p>
                 </div>
-                <div class='div-border'>
+                <div>
                     <p class='label inline'>Intelligence:</p>
                     <p class='info' id='int-display'></p>
                 </div>
             </div>
-        </div>
-
+            <div id='player-img'>
+                <img id='profile-img' src='https://www.autodifesa.info/wp-content/uploads/2018/09/colouring-pages-of-question-mark-coloring-marks-silhouette-male-on-head-image-silhoue.jpg' alt='player portfolio' height='300px' width='300px'>
+            </div>
     </div>
 
     </div>
 </body>
-<script src="script.js">
-</script>
+<script src="character_creator.js"></script>
+<script src="scripts/npc.js"></script>
 
 </html>
