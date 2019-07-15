@@ -197,7 +197,6 @@ const subClassesAndStatBoosts = {
     }
 };
 
-//!!!!NEED TO MAKE IT WEAR THE NUMBERS DON'T ADD TOGETHER IF PLAYER CHANGES MIND!!!!
 //**also need to make it where calculations happen to calculate HP, Defense, Crit, AP, and SP */
 
 
@@ -207,37 +206,38 @@ function resetAttributes() {
     character.baseStats.dex = 5;
     character.baseStats.int = 5;
 };
-//add the attribute boost for the character based on which race it is
-function humanStatBoost() {
-    character.baseStats.str += racesAndStatBoosts.human.str;
-    character.baseStats.dex += racesAndStatBoosts.human.dex;
-    character.baseStats.int += racesAndStatBoosts.human.int;
+
+//detects the race and changes attributes based on player choice
+function detectRace() {
+    let characterRace = document.getElementById('race-select').value;
+    if(characterRace === 'Human') {
+        character.baseStats.str += racesAndStatBoosts.human.str;
+        character.baseStats.dex += racesAndStatBoosts.human.dex;
+        character.baseStats.int += racesAndStatBoosts.human.int;
+    }else if(characterRace === 'Elf') {
+        character.baseStats.str += racesAndStatBoosts.elf.str;
+        character.baseStats.dex += racesAndStatBoosts.elf.dex;
+        character.baseStats.int += racesAndStatBoosts.elf.int;
+    }else if(characterRace === 'Orc') {
+        character.baseStats.str += racesAndStatBoosts.orc.str;
+        character.baseStats.dex += racesAndStatBoosts.orc.dex;
+        character.baseStats.int += racesAndStatBoosts.orc.int;
+    }else if(characterRace === 'Dwarf') {
+        character.baseStats.str += racesAndStatBoosts.dwarf.str;
+        character.baseStats.dex += racesAndStatBoosts.dwarf.dex;
+        character.baseStats.int += racesAndStatBoosts.dwarf.int;
+    }else if(characterRace === 'Dark Elf') {
+        character.baseStats.str += racesAndStatBoosts.darkElf.str;
+        character.baseStats.dex += racesAndStatBoosts.darkElf.dex;
+        character.baseStats.int += racesAndStatBoosts.darkElf.int;
+    }else if(characterRace === 'Goblin') {
+        character.baseStats.str += racesAndStatBoosts.goblin.str;
+        character.baseStats.dex += racesAndStatBoosts.goblin.dex;
+        character.baseStats.int += racesAndStatBoosts.goblin.int;
+    }
 };
-function dwarfStatBoost() {
-    character.baseStats.str += racesAndStatBoosts.dwarf.str;
-    character.baseStats.dex += racesAndStatBoosts.dwarf.dex;
-    character.baseStats.int += racesAndStatBoosts.dwarf.int;
-}
-function elfStatBoost() {
-    character.baseStats.str += racesAndStatBoosts.elf.str;
-    character.baseStats.dex += racesAndStatBoosts.elf.dex;
-    character.baseStats.int += racesAndStatBoosts.elf.int;
-};
-function orcStatBoost() {
-    character.baseStats.str += racesAndStatBoosts.orc.str;
-    character.baseStats.dex += racesAndStatBoosts.orc.dex;
-    character.baseStats.int += racesAndStatBoosts.orc.int;
-};
-function darkElfStatBoost() {
-    character.baseStats.str += racesAndStatBoosts.darkElf.str;
-    character.baseStats.dex += racesAndStatBoosts.darkElf.dex;
-    character.baseStats.int += racesAndStatBoosts.darkElf.int;
-}
-function goblinStatBoost() {
-    character.baseStats.str += racesAndStatBoosts.goblin.str;
-    character.baseStats.dex += racesAndStatBoosts.goblin.dex;
-    character.baseStats.int += racesAndStatBoosts.goblin.int;
-}
+
+//class boosts
 //applies boost to stats for choosing warrior
 function warriorAttributeBoost() {
     character.baseStats.str += classesAndStatBoosts.warrior.str;
@@ -256,8 +256,10 @@ function mageAttributeBoost() {
     character.baseStats.dex += classesAndStatBoosts.mage.dex;
     character.baseStats.int += classesAndStatBoosts.mage.int;
 };
-//detect stats when choosing warrior subclasses
-function detectWarriorSubClass() {
+
+//subclass
+//detect attribute boosts for the warrior subclasses
+function detectWarriorSubClassBoost() {
     let characterSubClass = document.getElementById('subclass-select').value;
     if(characterSubClass === 'Berserker') {
         character.baseStats.str += subClassesAndStatBoosts.warrior.berserker.str;
@@ -274,7 +276,7 @@ function detectWarriorSubClass() {
     }
 };
 //detect attribute boosts for the rogue subclasses
-function detectRogueSubClass() {
+function detectRogueSubClassBoost() {
     let characterSubClass = document.getElementById('subclass-select').value;
     if(characterSubClass === 'Assassin') {
         character.baseStats.str += subClassesAndStatBoosts.rogue.assassin.str;
@@ -292,7 +294,7 @@ function detectRogueSubClass() {
 };
 
 //detect attribute boosts for the mage subclasses
-function detectMageSubClasses() {
+function detectMageSubClassBoost() {
     let characterSubClass = document.getElementById('subclass-select').value;
     if(characterSubClass === 'Elementalist') {
         character.baseStats.str += subClassesAndStatBoosts.mage.elementalist.str;
@@ -309,68 +311,55 @@ function detectMageSubClasses() {
     }
 };
 
-function detectRace() {
-    let characterRace = document.getElementById('race-select').value;
-    if(characterRace === 'Human') {
-        humanStatBoost();
-    }else if(characterRace === 'Elf') {
-        elfStatBoost();
-    }else if(characterRace === 'Orc') {
-        orcStatBoost();
-    }else if(characterRace === 'Dwarf') {
-        dwarfStatBoost();
-    }else if(characterRace === 'Dark Elf') {
-        darkElfStatBoost();
-    }else if(characterRace === 'Goblin') {
-        goblinStatBoost();
-    }
-};
-
 //based on the choice of the class the character creator will reveal different subclasses
-function detectClass() {
+function detectClassAndSubClass() {
     let characterClass = document.getElementById('class-select').value;
     if(characterClass === 'Warrior') {
-        document.getElementById('subclass-1').innerHTML = subClassesAndStatBoosts.warrior.berserker.name;
-        document.getElementById('subclass-2').innerHTML = subClassesAndStatBoosts.warrior.fighter.name;
-        document.getElementById('subclass-3').innerHTML = subClassesAndStatBoosts.warrior.knight.name;
-        resetAttributes();
         warriorAttributeBoost();
-        detectWarriorSubClass();
-        detectRace();
+        detectWarriorSubClassBoost();
     }else if (characterClass === 'Rogue') {
-        document.getElementById('subclass-1').innerHTML = subClassesAndStatBoosts.rogue.assassin.name;
-        document.getElementById('subclass-2').innerHTML = subClassesAndStatBoosts.rogue.ranger.name;
-        document.getElementById('subclass-3').innerHTML = subClassesAndStatBoosts.rogue.thief.name;
-        resetAttributes();
         rogueAttributeBoost();
-        detectRogueSubClass();
-        detectRace();
+        detectRogueSubClassBoost();
     }else if (characterClass === 'Mage') {
-        document.getElementById('subclass-1').innerHTML = subClassesAndStatBoosts.mage.arcanist.name;
-        document.getElementById('subclass-2').innerHTML = subClassesAndStatBoosts.mage.battlemage.name;
-        document.getElementById('subclass-3').innerHTML = subClassesAndStatBoosts.mage.elementalist.name;
-        resetAttributes();
         mageAttributeBoost();
-        detectMageSubClasses();
-        detectRace();
+        detectMageSubClassBoost();
     }
 };
 
-function detectSubClass() {
+function writeSubClasses() {
+    let characterClass = document.getElementById('class-select').value;
+    let subClass1 = document.getElementById('subclass-1');
+    let subClass2 = document.getElementById('subclass-2');
+    let subClass3 = document.getElementById('subclass-3');
+    let warrior = subClassesAndStatBoosts.warrior;
+    let rogue = subClassesAndStatBoosts.rogue;
+    let mage = subClassesAndStatBoosts.mage;
+    if(characterClass === 'Warrior') {
+        subClass1.innerHTML = warrior.berserker.name;
+        subClass2.innerHTML = warrior.fighter.name;
+        subClass3.innerHTML = warrior.knight.name;
+    }else if (characterClass === 'Rogue') {
+       subClass1.innerHTML = rogue.assassin.name;
+        subClass2.innerHTML = rogue.ranger.name;
+        subClass3.innerHTML = rogue.thief.name;
+    }else if (characterClass === 'Mage') {
+       subClass1.innerHTML = mage.arcanist.name;
+        subClass2.innerHTML = mage.battlemage.name;
+        subClass3.innerHTML = mage.elementalist.name;
+    }
+}
+
+document.getElementById('class-select').onchange = writeSubClasses;
+
+function detectStats() {
     resetAttributes();
-    detectWarriorSubClass();
-    detectRogueSubClass();
-    detectMageSubClasses();
-    detectClass();
-};
-
-document.getElementById('race-select').onchange = detectRace;
-document.getElementById('class-select').onchange = detectClass;
-document.getElementById('subclass-select').onchange = detectSubClass;
-
+    detectRace();
+    detectClassAndSubClass();
+}
 
 //fill in the blanks on the character object above
 function updateModel() {
+    detectStats();
     character.name = document.getElementById('name-input').value;
     character.gender = document.getElementById('gender-select').value;
     character.race = document.getElementById('race-select').value;
@@ -393,26 +382,30 @@ function updateCharacterDisplay() {
 //make displays for HP, Defense, Dodge, and Crit
 
 function playerImageDetector() {
+    updateCharacterDisplay();
     let characterSubclass = document.getElementById('subclass-select').value;
-    console.log(characterSubclass);
+    let imageHolder = document.getElementById('profile-img');
+    let mage = subClassesAndStatBoosts.mage;
+    let warrior =subClassesAndStatBoosts.warrior;
+    let rogue =subClassesAndStatBoosts.rogue;
     if(characterSubclass === 'Battlemage') {
-        document.getElementById('profile-img').src = subClassesAndStatBoosts.mage.battlemage.img;
+        imageHolder.src = mage.battlemage.img;
     }else if(characterSubclass === 'Arcanist') {
-        document.getElementById('profile-img').src = subClassesAndStatBoosts.mage.arcanist.img;
+        imageHolder.src = mage.arcanist.img;
     }else if(characterSubclass === 'Elementalist') {
-        document.getElementById('profile-img').src = subClassesAndStatBoosts.mage.elementalist.img;
+        imageHolder.src = mage.elementalist.img;
     }else if(characterSubclass === 'Berserker') {
-        document.getElementById('profile-img').src = subClassesAndStatBoosts.warrior.berserker.img;
+        imageHolder.src = warrior.berserker.img;
     }else if(characterSubclass === 'Knight') {
-        document.getElementById('profile-img').src = subClassesAndStatBoosts.warrior.knight.img;
+        imageHolder.src = warrior.knight.img;
     }else if(characterSubclass === 'Fighter') {
-        document.getElementById('profile-img').src = subClassesAndStatBoosts.warrior.fighter.img;
+        imageHolder.src = warrior.fighter.img;
     }else if(characterSubclass === 'Assassin') {
-        document.getElementById('profile-img').src = subClassesAndStatBoosts.rogue.assassin.img;
+        imageHolder.src = rogue.assassin.img;
     }else if(characterSubclass === 'Thief') {
-        document.getElementById('profile-img').src = subClassesAndStatBoosts.rogue.thief.img;
+        imageHolder.src = rogue.thief.img;
     }else if(characterSubclass === 'Ranger') {
-        document.getElementById('profile-img').src = subClassesAndStatBoosts.rogue.ranger.img;
+        imageHolder.src = rogue.ranger.img;
     }
 }
 
@@ -431,7 +424,6 @@ function formSubmit() {
     }else if(characterSubClass === 'Choose Subclass') {
         alert('Must choose a subclass for your character!');
     }else {
-       updateCharacterDisplay();
        playerImageDetector();
     }
     

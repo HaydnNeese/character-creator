@@ -21,9 +21,10 @@ class TierOneBoss {
 }
 
 //tierOneEnemies
-const barbarian = new TierOneEnemy(5, 2, 0, 2, .5, .02);
-const trickster = new TierOneEnemy(3, 1, 1, 1, 1, .01);
+const thief = new TierOneEnemy(5, 2, 0, 2, .5, .007);
+const trickster = new TierOneEnemy(3, 1, 1, 1, 1, .003);
 const sewerRat = new TierOneEnemy(2, 1, 0, .5, .3, .005);
+const skeleton = new TierOneEnemy(2, 1, 0, 1, 0, .002)
 
 //tierOneBosses
 const cultLeader = new TierOneBoss(10, 2, 5, 4, 3, .1);
